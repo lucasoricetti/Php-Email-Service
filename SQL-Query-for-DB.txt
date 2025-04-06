@@ -1,0 +1,21 @@
+CREATE TABLE AccountMail (
+    IndirizzoMail VARCHAR(40) PRIMARY KEY NOT NULL,
+    Password VARCHAR(20)
+);
+
+CREATE TABLE Messaggio (
+    ID_Messaggio INT NOT NULL,
+    Mittente VARCHAR(40) NOT NULL,
+    Oggetto VARCHAR(30),
+    Body TEXT NOT NULL,
+    Data DATE NOT NULL,
+    PRIMARY KEY (ID_Messaggio, Mittente),
+    FOREIGN KEY (Mittente) REFERENCES AccountMail(IndirizzoMail)
+);
+
+CREATE TABLE Destinatario (
+    Importante BOOLEAN NOT NULL,
+    id_messaggio INT, FOREIGN KEY (id_messaggio) REFERENCES Messaggio(ID_Messaggio),
+    mittente VARCHAR(40), FOREIGN KEY (mittente) REFERENCES Messaggio(Mittente),
+    indirizzomail VARCHAR(40), FOREIGN KEY (indirizzomail) REFERENCES AccountMail(IndirizzoMail)
+);
